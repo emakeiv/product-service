@@ -2,8 +2,7 @@ version: "3"
 
 services:
     database:
-        image: timescale/timescaledb:latest-pg17
-        command: postgres -c shared_preload_libraries=timescaledb
+        image: postgres:latest
         restart: unless-stopped
         ports:   
             - 5431:5432             
@@ -11,12 +10,21 @@ services:
             - pg_data:/var/lib/postgresql/data
         env_file:
             - .env
-        environment:
-            LANG: ${LANG}
-            LC_COLLATE: ${LC_COLLATE}
-            LC_CTYPE: ${LC_CTYPE}
         networks:
         - backend
+
+    admin: 
+        image: dpage/pgadmin4
+        restart: unless-stopped
+        ports:
+            - 5050:80
+        env_file:
+            - .env
+        depends_on:
+            - database
+        networks:
+            - backend
+
     app:
         build:
             context: ./php
