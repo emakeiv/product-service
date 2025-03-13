@@ -27,12 +27,13 @@ services:
 
     app:
         build:
-            context: ./php
+            context: ../
+            dockerfile: .docker/php/dockerfile
         volumes:
             - ../:/var/www/symfony:cached
             - app_var:/var/www/symfony/var
             - app_vendor:/var/www/symfony/vendor
-      
+        
         networks:
             - backend
     web:

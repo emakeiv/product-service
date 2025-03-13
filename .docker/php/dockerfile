@@ -1,6 +1,8 @@
 FROM php:8.2-fpm-buster
 
-COPY php.ini /usr/local/etc/php/conf.d/docker-php-config.ini
+COPY .docker/php/php.ini /usr/local/etc/php/conf.d/docker-php-config.ini
+
+WORKDIR /var/www/symfony
 
 RUN apt-get update
 
@@ -29,4 +31,18 @@ RUN docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql \
     && docker-php-ext-install pdo pdo_pgsql pgsql \
     && docker-php-ext-configure gd --with-jpeg --with-freetype 
 
+
+
+
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+
+COPY ./ ./
+
+# Fix permissions
+RUN chown -R www-data:www-data /var/www/symfony && chmod +x bin/console
+
+# Now install dependencies
+RUN composer install --optimize-autoloader
+
+# Dump autoloader
+RUN composer dump-autoload --optimize
