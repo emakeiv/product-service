@@ -8,8 +8,10 @@ services:
             - 5431:5432             
         volumes: 
             - pg_data:/var/lib/postgresql/data
+            - ./database/operations:/docker-entrypoint-initdb.d
         env_file:
             - .env
+        # entrypoint: ["/docker-entrypoint-initdb.d/shell/init_database.sh"]
         networks:
         - backend
 
@@ -33,7 +35,8 @@ services:
             - ../:/var/www/symfony:cached
             - app_var:/var/www/symfony/var
             - app_vendor:/var/www/symfony/vendor
-        
+        depends_on:
+            - database
         networks:
             - backend
     web:
@@ -47,6 +50,8 @@ services:
             - 80:80
         env_file:
             - .env.nginx
+        depends_on:
+            - app
         networks:
             - backend
 
@@ -54,6 +59,7 @@ volumes:
     app_var:
     app_vendor:
     pg_data:
+    database:
 
 networks:
     backend:
