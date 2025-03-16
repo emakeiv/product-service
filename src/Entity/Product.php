@@ -2,106 +2,33 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use App\Repository\ProductRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * Product
- *
- * @ORM\Table(name="Product", indexes={@ORM\Index(name="IDX_1CF73D3112469DE2", columns={"category_id"}), @ORM\Index(name="IDX_1CF73D314C7C611F", columns={"discount_id"})})
- * @ORM\Entity
- */
+#[ORM\Entity(repositoryClass: ProductRepository::class)]
+#[ORM\Table(name: '"Product"')]
 class Product
 {
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="SEQUENCE")
-     * @ORM\SequenceGenerator(sequenceName="Product_id_seq", allocationSize=1, initialValue=1)
-     */
-    private $id;
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
+    private ?int $id = null;
 
-    /**
-     * @var string|null
-     *
-     * @ORM\Column(name="name", type="string", length=16, nullable=true)
-     */
-    private $name;
+    #[ORM\Column(length: 16)]
+    private ?string $name = null;
 
-    /**
-     * @var string|null
-     *
-     * @ORM\Column(name="description", type="string", length=64, nullable=true)
-     */
-    private $description;
+    #[ORM\Column(length: 64, nullable: true)]
+    private ?string $description = null;
 
-    /**
-     * @var string|null
-     *
-     * @ORM\Column(name="cost_price", type="decimal", precision=7, scale=2, nullable=true)
-     */
-    private $costPrice;
+    #[ORM\Column(type: Types::DECIMAL, precision: 7, scale: 2)]
+    private ?float $costPrice = null;
 
-    /**
-     * @var string|null
-     *
-     * @ORM\Column(name="sell_price", type="decimal", precision=7, scale=2, nullable=true)
-     */
-    private $sellPrice;
+    #[ORM\Column(type: Types::DECIMAL, precision: 7, scale: 2)]
+    private ?float $sellPrice = null;
 
-    /**
-     * @var string|null
-     *
-     * @ORM\Column(name="sku", type="string", length=16, nullable=true)
-     */
-    private $sku;
-
-    /**
-     * @var \Category
-     *
-     * @ORM\ManyToOne(targetEntity="Category")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="category_id", referencedColumnName="id")
-     * })
-     */
-    private $category;
-
-    /**
-     * @var \Discount
-     *
-     * @ORM\ManyToOne(targetEntity="Discount")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="discount_id", referencedColumnName="id")
-     * })
-     */
-    private $discount;
-
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     *
-     * @ORM\ManyToMany(targetEntity="Cart", mappedBy="product")
-     */
-    private $cart = array();
-
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     *
-     * @ORM\ManyToMany(targetEntity="Order", mappedBy="product")
-     */
-    private $order = array();
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->cart = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->order = new \Doctrine\Common\Collections\ArrayCollection();
-    }
+    #[ORM\Column(length: 16)]
+    private ?string $sku = null;
 
     public function getId(): ?int
     {
@@ -116,8 +43,6 @@ class Product
     public function setName(?string $name): static
     {
         $this->name = $name;
-
-        return $this;
     }
 
     public function getDescription(): ?string
@@ -137,7 +62,7 @@ class Product
         return $this->costPrice;
     }
 
-    public function setCostPrice(?string $costPrice): static
+    public function setCostPrice(string $costPrice): static
     {
         $this->costPrice = $costPrice;
 
@@ -149,7 +74,7 @@ class Product
         return $this->sellPrice;
     }
 
-    public function setSellPrice(?string $sellPrice): static
+    public function setSellPrice(string $sellPrice): static
     {
         $this->sellPrice = $sellPrice;
 
@@ -161,89 +86,10 @@ class Product
         return $this->sku;
     }
 
-    public function setSku(?string $sku): static
+    public function setSku(string $sku): static
     {
         $this->sku = $sku;
 
         return $this;
     }
-
-    public function getCategory(): ?Category
-    {
-        return $this->category;
-    }
-
-    public function setCategory(?Category $category): static
-    {
-        $this->category = $category;
-
-        return $this;
-    }
-
-    public function getDiscount(): ?Discount
-    {
-        return $this->discount;
-    }
-
-    public function setDiscount(?Discount $discount): static
-    {
-        $this->discount = $discount;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Cart>
-     */
-    public function getCart(): Collection
-    {
-        return $this->cart;
-    }
-
-    public function addCart(Cart $cart): static
-    {
-        if (!$this->cart->contains($cart)) {
-            $this->cart->add($cart);
-            $cart->addProduct($this);
-        }
-
-        return $this;
-    }
-
-    public function removeCart(Cart $cart): static
-    {
-        if ($this->cart->removeElement($cart)) {
-            $cart->removeProduct($this);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Order>
-     */
-    public function getOrder(): Collection
-    {
-        return $this->order;
-    }
-
-    public function addOrder(Order $order): static
-    {
-        if (!$this->order->contains($order)) {
-            $this->order->add($order);
-            $order->addProduct($this);
-        }
-
-        return $this;
-    }
-
-    public function removeOrder(Order $order): static
-    {
-        if ($this->order->removeElement($order)) {
-            $order->removeProduct($this);
-        }
-
-        return $this;
-    }
-
 }
