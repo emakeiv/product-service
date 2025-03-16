@@ -4,7 +4,7 @@
 
 {% block body %}
 <h1>Products</h1>
-<table class="table">
+<table class="table table-striped">
     <thead>
         <tr>
             <th>Name</th>
@@ -17,7 +17,9 @@
     <tbody>
         {% for product in products %}
             <tr>
-                <td>{{product.name}}</td>
+                <a href={{ path('product_show', {'id': product.id}) }}>
+                    <td>{{product.name}}</td>
+                </a>
                 <td>{{product.description}}</td>
                 <td>{{product.costPrice}}</td>
                 <td>{{product.sellPrice}}</td>

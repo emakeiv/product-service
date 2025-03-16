@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<h1>Product</h1>
+
+<table class="table table-striped">
+    <tbody>
+        <tr>
+            <th>Name</th>
+            <td>{{product.name}}</td>
+        </tr>
+         <tr>
+            <th>Description</th>
+            <td>{{product.description}}</td>
+        </tr>
+        <tr>
+            <th>Cost price</th>
+            <td>{{product.costPrice}}</td>
+        </tr>
+        <tr>
+            <th>Sell price</th>
+            <td>{{product.sellPrice}}</td>
+        </tr>
+        <tr>
+            <th>SKU</th>
+            <td>{{product.sku}}</td>
+        </tr>
+    </tbody>
+</table>
+
+{% endblock %}

@@ -16,4 +16,15 @@ class ProductController extends AbstractController
             'products' =>  $repository -> findAll(),
         ]);
     }
+    #[Route('/products/{id<\d+>}', name: 'product_show')]
+    public function show($id, ProductRepository $repository): Response
+    {
+        $product = $repository -> findOneBy(['id' => $id]);
+        if ($product === null){
+            throw $this->createNotFoundException('Poduct not found');
+        }
+        return $this->render('product/show.html.twig',[
+            'product' => $product
+        ]);
+    }
 }

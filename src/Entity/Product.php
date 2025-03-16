@@ -57,24 +57,24 @@ class Product
         return $this;
     }
 
-    public function getCostPrice(): ?string
+    public function getCostPrice(): ?float
     {
         return $this->costPrice;
     }
 
-    public function setCostPrice(string $costPrice): static
+    public function setCostPrice(float $costPrice): static
     {
         $this->costPrice = $costPrice;
 
         return $this;
     }
 
-    public function getSellPrice(): ?string
+    public function getSellPrice(): ?float
     {
         return $this->sellPrice;
     }
 
-    public function setSellPrice(string $sellPrice): static
+    public function setSellPrice(float $sellPrice): static
     {
         $this->sellPrice = $sellPrice;
 
