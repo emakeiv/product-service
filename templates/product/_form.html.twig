@@ -1,0 +1,39 @@
+ {{ form_start(form, {'attr': {
+            'class': 'needs-validation',
+            'novalidate': 'novalidate' 
+            
+            }}) }}
+
+        <div class="mb-3">
+            {{ form_label(form.name, null, {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.name, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.name) }}
+        </div>
+
+        <div class="mb-3">
+            {{ form_label(form.description, null, {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.description, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.description) }}
+        </div>
+
+        <div class="mb-3">
+            {{ form_label(form.costPrice, null, {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.costPrice, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.costPrice) }}
+        </div>
+
+        <div class="mb-3">
+            {{ form_label(form.sellPrice, null, {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.sellPrice, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.sellPrice) }}
+        </div>
+
+        <div class="mb-3">
+            {{ form_label(form.sku, null, {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.sku, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.sku) }}
+        </div>
+
+        {{ form_widget(form.save, {'attr': {'class': 'btn btn-primary'}}) }}
+
+        {{ form_end(form) }}

@@ -80,18 +80,21 @@ CREATE TABLE IF NOT EXISTS  "Discount" (
 
 CREATE TABLE IF NOT EXISTS  "Product" (
       id          SERIAL,
-      name        VARCHAR(16),
-      description VARCHAR(64),
-      cost_price  DECIMAL(7,2),
-      sell_price  DECIMAL(7,2),
-      sku         VARCHAR(16),
+      name        VARCHAR(16)  NOT NULL,
+      description VARCHAR(64)  NOT NULL,
+      cost_price  DECIMAL(7,2) NOT NULL CHECK (cost_price > 0)
+      sell_price  DECIMAL(7,2) NOT NULL CHECK (sell_price > 0)
+      sku         VARCHAR(16)  NOT NULL,
       category_id INT,
       discount_id INT,
+
 
       CONSTRAINT pk_product_id      PRIMARY KEY (id),
       CONSTRAINT fk_category_id     FOREIGN KEY (category_id) REFERENCES "Category"(id),
       CONSTRAINT fk_discount_id     FOREIGN KEY (discount_id) REFERENCES "Discount"(id)
 );
+
+
 CREATE TABLE IF NOT EXISTS  "Order" (
       id                SERIAL,
       customer_id       INT,

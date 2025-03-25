@@ -4,6 +4,7 @@
 
 {% block body %}
 <h1>Products</h1>
+<a href={{path('product_new')}} class="btn btn-primary">Add new</a>
 <table class="table table-striped">
     <thead>
         <tr>
@@ -17,9 +18,11 @@
     <tbody>
         {% for product in products %}
             <tr>
-                <a href={{ path('product_show', {'id': product.id}) }}>
-                    <td>{{product.name}}</td>
-                </a>
+                <td>
+                    <a href="{{ path('product_show', {'id': product.id}) }}">
+                        {{product.name}}
+                    </a>
+                </td>
                 <td>{{product.description}}</td>
                 <td>{{product.costPrice}}</td>
                 <td>{{product.sellPrice}}</td>
