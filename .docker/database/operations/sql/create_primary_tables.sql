@@ -82,8 +82,8 @@ CREATE TABLE IF NOT EXISTS  "Product" (
       id          SERIAL,
       name        VARCHAR(16)  NOT NULL,
       description VARCHAR(64)  NOT NULL,
-      cost_price  DECIMAL(7,2) NOT NULL CHECK (cost_price > 0)
-      sell_price  DECIMAL(7,2) NOT NULL CHECK (sell_price > 0)
+      cost_price  DECIMAL(7,2) NOT NULL CHECK (cost_price > 0),
+      sell_price  DECIMAL(7,2) NOT NULL CHECK (sell_price > 0),
       sku         VARCHAR(16)  NOT NULL,
       category_id INT,
       discount_id INT,
