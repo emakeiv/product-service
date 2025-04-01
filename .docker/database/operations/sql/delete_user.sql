@@ -1,1 +1,1 @@
-DROP USER IF EXISTS db_bot;
+DROP USER IF EXISTS user;

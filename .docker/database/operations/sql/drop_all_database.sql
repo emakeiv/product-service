@@ -1,1 +1,1 @@
-DROP DATABASE IF EXISTS db_basics_primary (FORCE);
+DROP DATABASE IF EXISTS product_service_db (FORCE);
