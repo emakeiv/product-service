@@ -1,6 +1,10 @@
 #!/bin/bash
 set -e  # Exit on error
 
+#psql -U user -d product_service_db -f /docker-entrypoint-initdb.d/sql/00_create_database_user.sql
+#psql -U user -d product_service_db -f /docker-entrypoint-initdb.d/sql/01_create_database.sql
+#psql -U user -d product_service_db -f /docker-entrypoint-initdb.d/sql/03_grant_privileges.sql
+
 psql -U user -d product_service_db -f /docker-entrypoint-initdb.d/sql/create_auxiliary_tables.sql
 psql -U user -d product_service_db -f /docker-entrypoint-initdb.d/sql/create_primary_tables.sql
 

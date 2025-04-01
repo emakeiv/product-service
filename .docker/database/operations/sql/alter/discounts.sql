@@ -1,0 +1,3 @@
+ALTER TABLE "Discount"
+ADD COLUMN active_until_ts TIMESTAMP
+ADD COLUMN type VARCHAR(16);

@@ -29,17 +29,19 @@ CREATE TABLE IF NOT EXISTS  "User" (
       id                SERIAL,
       customer_id       INT,
       username          VARCHAR(64) NOT NULL,
-      email_address     VARCHAR(64) NOT NULL,
-      password_hash     VARCHAR(64),
-      created_at        TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+      email             VARCHAR(64) NOT NULL,
+      password          VARCHAR(64),
+      created_at        TIMESTAMP            DEFAULT CURRENT_TIMESTAMP,
       last_login_ts     TIMESTAMP,
+      roles             JSON        NOT NULL DEFAULT '[]',
+      is_verified       BOOLEAN     NOT NULL DEFAULT FALSE,
       is_active         BOOLEAN,
       email_validated   BOOLEAN,
       phone_validated   BOOLEAN,
 
       CONSTRAINT pk_user_id         PRIMARY KEY (id),
       CONSTRAINT fk_customer_id     FOREIGN KEY (customer_id)     REFERENCES "Customer"(id),
-      CONSTRAINT unique_uname_and_email  UNIQUE (username, email_address)
+      CONSTRAINT unique_uname_and_email  UNIQUE (username, email)
 );
 
 CREATE TABLE IF NOT EXISTS  "PaymentType"(
@@ -66,14 +68,16 @@ CREATE TABLE IF NOT EXISTS  "Category" (
       CONSTRAINT fk_category_id     FOREIGN KEY (category_name_id) REFERENCES "CategoryName"(id)
 );
 CREATE TABLE IF NOT EXISTS  "Discount" (
-      id          SERIAL,
-      name        VARCHAR(16),
-      description VARCHAR(64),
-      percentage  DECIMAL(4,2),
-      active      BOOLEAN,
-      created_ts  TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-      edited_ts   TIMESTAMP,
-      deleted_ts  TIMESTAMP,
+      id                SERIAL,
+      name              VARCHAR(16),
+      type              VARCHAR(16),
+      description       VARCHAR(64),
+      percentage        DECIMAL(4,2),
+      active            BOOLEAN,
+      created_ts        TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+      active_until_ts   TIMESTAMP
+      edited_ts         TIMESTAMP,
+      deleted_ts        TIMESTAMP,
 
       CONSTRAINT pk_discout_id      PRIMARY KEY (id)
 );
