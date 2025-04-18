@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 use Doctrine\ORM\EntityManagerInterface;
 
@@ -16,6 +17,7 @@ use App\Entity\Product;
 class ProductController extends AbstractController
 {
     #[Route('/products', name: 'product_index')]
+    #[IsGranted('ROLE_USER')]
     public function index(ProductRepository $repository): Response
     {
         return $this->render('product/index.html.twig', [
@@ -23,6 +25,7 @@ class ProductController extends AbstractController
         ]);
     }
     #[Route('/products/{id<\d+>}', name: 'product_show')]
+    #[IsGranted('ROLE_USER')]
     public function show($id, ProductRepository $repository): Response
     {
         $product = $repository -> findOneBy(['id' => $id]);
@@ -34,6 +37,7 @@ class ProductController extends AbstractController
         ]);
     }
     #[Route('/products/new', name: 'product_new')]
+    #[IsGranted('ROLE_USER')]
     public function new(Request $request, EntityManagerInterface $manager): Response
     {   
         $product = new Product;
@@ -62,6 +66,7 @@ class ProductController extends AbstractController
     }
 
     #[Route('/products/{id<\d+>}/edit', name: 'product_edit')]
+    #[IsGranted('ROLE_USER')]
     public function edit(Product $product, Request $request, EntityManagerInterface $manager): Response
     {
 
@@ -88,6 +93,7 @@ class ProductController extends AbstractController
         ]);
     }
     #[Route('/products/{id<\d+>}/delete', name: 'product_delete') ]
+    #[IsGranted('ROLE_USER')]
     public function delete(Product $product, Request $request, EntityManagerInterface $manager): Response
     {  
         if($request->isMethod('POST')){
