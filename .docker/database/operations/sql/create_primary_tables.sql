@@ -75,7 +75,7 @@ CREATE TABLE IF NOT EXISTS  "Discount" (
       percentage        DECIMAL(4,2),
       active            BOOLEAN,
       created_ts        TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-      active_until_ts   TIMESTAMP
+      active_until_ts   TIMESTAMP,
       edited_ts         TIMESTAMP,
       deleted_ts        TIMESTAMP,
 
